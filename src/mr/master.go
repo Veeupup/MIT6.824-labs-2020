@@ -1,6 +1,7 @@
 package mr
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -25,20 +26,29 @@ type MapTask struct {
 	state    int    // idle, in-progress, completed
 }
 
+type ReduceTask struct {
+	filename string // reduce filename
+	reduceid int    // reduce id
+	state    int    // idle, in-progress, completed
+}
+
 type Master struct {
 	// Your definitions here.
 	mapTasks        []MapTask
+	reduceTasks     []ReduceTask
 	mapCompleted    bool
 	reduceCompleted bool
 }
 
 var (
-	mapId        int
-	mapTasksTodo int // remember how many tasks needs to do
-	reduceId     int
-	mutex        sync.Mutex
-	baton        chan int
-	chanarr      [10]chan int
+	mapId             int
+	mapTasksTodo      int // remember how many tasks needs to do
+	reduceTasksTodo   int // reduce tasks need to do
+	intermediateFiles []string
+	reduceId          int
+	mutex             sync.Mutex
+	baton             chan int
+	chanarr           [10]chan int
 )
 
 // AssignTask a interface to assign map or reduce task
@@ -66,6 +76,10 @@ func (m *Master) AssignTask(args *MapAssignArgs, reply *MapAssignReply) error {
 	} else if !m.reduceCompleted {
 		// all map works have done and it's time to assign reduce works
 		reply.TaskType = "reduce"
+		reply.TaskId = -1
+		for index, task := range m.reduceTasks {
+
+		}
 
 	} else {
 		reply.TaskType = "close"
@@ -82,15 +96,20 @@ func limitTimer(m *Master, index int, baton chan int) {
 	select {
 	case x := <-baton:
 		if x == index {
-			fmt.Printf("Task %v has finished in 10s", index)
+			fmt.Printf("Map Task %v has finished in 10s\n", index)
 		}
 		mutex.Lock()
 		mapTasksTodo--
+		if mapTasksTodo == 0 {
+			m.mapCompleted = true
+			// fmt.Println("all Map Tasks Has done!")
+			splitNBuckets(m)
+		}
 		m.mapTasks[index].state = COMPLETED
 		mutex.Unlock()
-		fmt.Println(m.mapTasks)
+		// fmt.Println(m.mapTasks)
 	case <-time.After(time.Second * WAIT_TIME):
-		fmt.Printf("Task %v Timeout", index)
+		fmt.Printf("Task %v Timeout\n", index)
 		mutex.Lock()
 		m.mapTasks[index].state = IDLE
 		m.mapTasks[index].mapid++ // increment to discard previous messages
@@ -107,20 +126,94 @@ func (m *Master) DoneTask(args *CompletedArgs, reply *CompletedReply) error {
 	// if taskId is less than the mapTasks[index].mapid
 	// it means that this task has assigned to another worker to do
 	// this worker has worked timeout
-	if args.TaskId >= m.mapTasks[args.TaskIndex].mapid {
-		chanarr[args.TaskIndex] <- args.TaskId // tell the timer to stop
-		reply.Message = "You finished " + strconv.Itoa(args.TaskId) + " Map Task. Keep Going"
+	if args.TaskType == "map" {
+		if args.TaskId >= m.mapTasks[args.TaskIndex].mapid {
+			chanarr[args.TaskIndex] <- args.TaskId // tell the timer to stop
+			intermediateFiles = append(intermediateFiles, args.FileName)
+			reply.Message = "You finished " + strconv.Itoa(args.TaskId) + " Map Task. Keep Going"
+		}
 	}
 
-	mutex.Lock()
-	// if all map tasks have been done, it's time to reduce tasks
-	// and it will only run once when the first time map tasks have done
-	if !m.reduceCompleted && mapTasksTodo == 0 {
-		m.mapCompleted = true
-	}
-	mutex.Unlock()
+	// mutex.Lock()
+	// // if all map tasks have been done, it's time to reduce tasks
+	// // and it will only run once when the first time map tasks have done
+	// if !m.reduceCompleted && m.mapCompleted {
+	// 	m.mapCompleted = true
+	// }
+	// mutex.Unlock()
 
+	// fmt.Println(intermediateFiles)
 	return nil
+}
+
+// split all intermediate kvs into n Buckets
+func splitNBuckets(m *Master) {
+	fmt.Printf("All map tasks hava done, it's time to split into %v buckets\n", reduceTasksTodo)
+	fmt.Println(intermediateFiles)
+	kva := []KeyValue{}
+	for _, filename := range intermediateFiles {
+		file, err := os.Open(filename)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		dec := json.NewDecoder(file)
+		for {
+			var kv KeyValue
+			if err := dec.Decode(&kv); err != nil {
+				break
+			}
+			kva = append(kva, kv)
+		}
+
+		fmt.Println(filename, "has read")
+		fmt.Println(len(kva))
+		// fmt.Println(kva[100], kva[1234])
+	}
+	length := len(kva)
+	bucketSize := length / reduceTasksTodo
+	fmt.Println("Bucket Size: ", bucketSize)
+
+	start := 0
+	endPos := 0
+	index := 0
+
+	// bucketSize = 10
+	for {
+		if start+bucketSize < length-1 {
+			endPos = start + bucketSize
+		} else {
+			endPos = length - 1
+		}
+		fmt.Println("start: ", start, ", end:", endPos)
+		tempFileName := "./mr-tmp/mr-tmp-" + strconv.Itoa(index)
+
+		file, err := os.Create(tempFileName)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		enc := json.NewEncoder(file)
+
+		for _, kv := range kva[start:endPos] {
+			err := enc.Encode(&kv)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+
+		file.Close()
+
+		m.reduceTasks[index].filename = tempFileName
+		m.reduceTasks[index].state = IDLE
+
+		start = endPos
+		index++
+		if index == reduceTasksTodo {
+			break
+		}
+	}
+	fmt.Println(m.reduceTasks)
 }
 
 //
@@ -171,6 +264,7 @@ func MakeMaster(files []string, nReduce int) *Master {
 
 	// init master state
 	m.mapTasks = []MapTask{}
+	m.reduceTasks = make([]ReduceTask, nReduce)
 	m.mapCompleted = false
 	m.reduceCompleted = false
 
@@ -188,7 +282,9 @@ func MakeMaster(files []string, nReduce int) *Master {
 
 	// get filenames in a struct
 	mapTasksTodo = len(files)
+	reduceTasksTodo = nReduce
 	fmt.Println("map tasks: ", mapTasksTodo)
+	fmt.Println("reduce tasks: ", reduceTasksTodo)
 	for _, fn := range files {
 		mt := MapTask{filename: fn, mapid: 0, state: IDLE}
 		m.mapTasks = append(m.mapTasks, mt)

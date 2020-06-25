@@ -6,7 +6,6 @@ import (
 	"hash/fnv"
 	"io/ioutil"
 	"log"
-	"math/rand"
 	"net/rpc"
 	"os"
 	"sort"
@@ -103,10 +102,11 @@ func Worker(mapf func(string, string) []KeyValue,
 			//
 			file.Close()
 
-			ran := rand.Intn(8)
-			fmt.Printf("Sleep %v s\n", ran)
-			d := time.Second * time.Duration(ran)
-			time.Sleep(d)
+			// try to delay sometime
+			// ran := rand.Intn(8)
+			// fmt.Printf("Sleep %v s\n", ran)
+			// d := time.Second * time.Duration(ran)
+			// time.Sleep(d)
 
 			// tell the master the mapwork has done
 			CallDoneTask(reply, tempFileName)
