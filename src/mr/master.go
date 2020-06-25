@@ -7,13 +7,16 @@ import (
 	"net/http"
 	"net/rpc"
 	"os"
+	"strconv"
 	"sync"
+	"time"
 )
 
 const (
 	IDLE       = 0
 	INPROGRESS = 1
 	COMPLETED  = 2
+	WAIT_TIME  = 5 // time to wait for a task finish
 )
 
 type MapTask struct {
@@ -34,6 +37,8 @@ var (
 	mapTasksTodo int // remember how many tasks needs to do
 	reduceId     int
 	mutex        sync.Mutex
+	baton        chan int
+	chanarr      [10]chan int
 )
 
 // AssignTask a interface to assign map or reduce task
@@ -54,6 +59,7 @@ func (m *Master) AssignTask(args *MapAssignArgs, reply *MapAssignReply) error {
 				reply.TaskId = mapId
 				reply.TaskIndex = index // to remember which task has done
 				mapId++
+				go limitTimer(m, index, chanarr[index])
 				break
 			}
 		}
@@ -70,27 +76,49 @@ func (m *Master) AssignTask(args *MapAssignArgs, reply *MapAssignReply) error {
 	return nil
 }
 
+// to limit a task in 10s, if a task runs beyond 10s, change the state of the task to idle
+func limitTimer(m *Master, index int, baton chan int) {
+
+	select {
+	case x := <-baton:
+		if x == index {
+			fmt.Printf("Task %v has finished in 10s", index)
+		}
+		mutex.Lock()
+		mapTasksTodo--
+		m.mapTasks[index].state = COMPLETED
+		mutex.Unlock()
+		fmt.Println(m.mapTasks)
+	case <-time.After(time.Second * WAIT_TIME):
+		fmt.Printf("Task %v Timeout", index)
+		mutex.Lock()
+		m.mapTasks[index].state = IDLE
+		m.mapTasks[index].mapid++ // increment to discard previous messages
+		mutex.Unlock()
+		fmt.Println(m.mapTasks)
+	}
+
+}
+
 //
 func (m *Master) DoneTask(args *CompletedArgs, reply *CompletedReply) error {
 
-	mutex.Lock()
+	reply.Message = "Your should be faster, keep Going"
 	// if taskId is less than the mapTasks[index].mapid
 	// it means that this task has assigned to another worker to do
 	// this worker has worked timeout
 	if args.TaskId >= m.mapTasks[args.TaskIndex].mapid {
-		mapTasksTodo--
-		m.mapTasks[args.TaskIndex].state = COMPLETED
+		chanarr[args.TaskIndex] <- args.TaskId // tell the timer to stop
+		reply.Message = "You finished " + strconv.Itoa(args.TaskId) + " Map Task. Keep Going"
 	}
 
+	mutex.Lock()
 	// if all map tasks have been done, it's time to reduce tasks
 	// and it will only run once when the first time map tasks have done
 	if !m.reduceCompleted && mapTasksTodo == 0 {
 		m.mapCompleted = true
 	}
-
 	mutex.Unlock()
-
-	reply.Message = "nice work"
 
 	return nil
 }
@@ -145,6 +173,11 @@ func MakeMaster(files []string, nReduce int) *Master {
 	m.mapTasks = []MapTask{}
 	m.mapCompleted = false
 	m.reduceCompleted = false
+
+	// init channel
+	for i := range chanarr {
+		chanarr[i] = make(chan int, 1)
+	}
 
 	// start server
 	go m.server()
