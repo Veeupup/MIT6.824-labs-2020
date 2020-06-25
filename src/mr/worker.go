@@ -1,10 +1,17 @@
 package mr
 
-import "fmt"
-import "log"
-import "net/rpc"
-import "hash/fnv"
-
+import (
+	"encoding/json"
+	"fmt"
+	"hash/fnv"
+	"io/ioutil"
+	"log"
+	"net/rpc"
+	"os"
+	"sort"
+	"strconv"
+	"time"
+)
 
 //
 // Map functions return a slice of KeyValue.
@@ -13,6 +20,18 @@ type KeyValue struct {
 	Key   string
 	Value string
 }
+
+// for sorting by key.
+type ByKey []KeyValue
+
+// for sorting by key.
+func (a ByKey) Len() int           { return len(a) }
+func (a ByKey) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByKey) Less(i, j int) bool { return a[i].Key < a[j].Key }
+
+var (
+	taskId int // remember taskId
+)
 
 //
 // use ihash(key) % NReduce to choose the reduce
@@ -24,18 +43,96 @@ func ihash(key string) int {
 	return int(h.Sum32() & 0x7fffffff)
 }
 
-
 //
 // main/mrworker.go calls this function.
 //
 func Worker(mapf func(string, string) []KeyValue,
 	reducef func(string, []string) string) {
 
-	// Your worker implementation here.
+	// init
+	taskId = 9999
 
-	// uncomment to send the Example RPC to the master.
-	// CallExample()
+	//
+	for {
+		time.Sleep(time.Second)
 
+		reply := CallAssign()
+
+		fmt.Println(reply)
+
+		if reply.TaskId < 0 {
+			fmt.Println("Waiting for assigning a work...")
+			continue
+		}
+
+		// modify taskId and later will tell master who i am
+		taskId = reply.TaskId
+
+		if reply.TaskType == "map" {
+			file, err := os.Open(reply.FileName)
+			if err != nil {
+				log.Fatalf("cannot open %v", reply.FileName)
+			}
+			content, err := ioutil.ReadAll(file)
+			if err != nil {
+				log.Fatalf("cannot read %v", reply.FileName)
+			}
+			file.Close()
+			kva := mapf(reply.FileName, string(content))
+
+			// sort
+			sort.Sort(ByKey(kva))
+
+			// store intermediate kvs in tempFile
+			tempFileName := "./mr-tmp/tmp-" + reply.TaskType + "-" + strconv.Itoa(reply.TaskId)
+
+			file, err = os.Create(tempFileName)
+			if err != nil {
+				log.Fatal("cannot create %v", tempFileName)
+			}
+
+			// transform k,v into json
+			enc := json.NewEncoder(file)
+			for _, kv := range kva {
+				err := enc.Encode(&kv)
+				if err != nil {
+					log.Fatal(err)
+				}
+			}
+
+			file.Close()
+
+			// tell the master the mapwork has done
+			CallDoneTask(reply, tempFileName)
+
+		} else if reply.TaskType == "reduce" {
+			fmt.Println(reply.TaskType)
+		} else if reply.TaskType == "close" {
+			fmt.Println("MapReduce has done. Exiting...")
+			break
+		} else {
+			fmt.Println("UnExcepted TaskType")
+		}
+
+	}
+
+}
+
+// CallDoneTask, to tell the master has done
+func CallDoneTask(task MapAssignReply, tempFileName string) {
+
+	args := CompletedArgs{}
+
+	args.TaskId = task.TaskId
+	args.TaskIndex = task.TaskIndex
+	args.FileName = tempFileName
+	args.TaskType = task.TaskType
+
+	reply := CompletedReply{}
+
+	call("Master.DoneTask", &args, &reply)
+
+	fmt.Println(reply.Message)
 }
 
 //
@@ -59,6 +156,23 @@ func CallExample() {
 
 	// reply.Y should be 100.
 	fmt.Printf("reply.Y %v\n", reply.Y)
+}
+
+// CallAssign to get a job from master
+// it may be a map task or a reduce task
+func CallAssign() MapAssignReply {
+
+	args := MapAssignArgs{}
+
+	args.TASKID = taskId
+
+	reply := MapAssignReply{}
+
+	call("Master.AssignTask", &args, &reply)
+
+	// fmt.Println(reply)
+
+	return reply
 }
 
 //
