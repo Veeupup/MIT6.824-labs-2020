@@ -17,7 +17,7 @@ const (
 	IDLE       = 0
 	INPROGRESS = 1
 	COMPLETED  = 2
-	WAIT_TIME  = 5 // time to wait for a task finish
+	WAIT_TIME  = 2 // time to wait for a task finish
 )
 
 type MapTask struct {
@@ -48,7 +48,8 @@ var (
 	reduceId          int
 	mutex             sync.Mutex
 	baton             chan int
-	chanarr           [10]chan int
+	mapChanarr        [10]chan int
+	reduceChanarr     [10]chan int
 )
 
 // AssignTask a interface to assign map or reduce task
@@ -69,7 +70,7 @@ func (m *Master) AssignTask(args *MapAssignArgs, reply *MapAssignReply) error {
 				reply.TaskId = mapId
 				reply.TaskIndex = index // to remember which task has done
 				mapId++
-				go limitTimer(m, index, chanarr[index])
+				go limitMapTimer(m, index, mapChanarr[index])
 				break
 			}
 		}
@@ -78,7 +79,17 @@ func (m *Master) AssignTask(args *MapAssignArgs, reply *MapAssignReply) error {
 		reply.TaskType = "reduce"
 		reply.TaskId = -1
 		for index, task := range m.reduceTasks {
-
+			// to find the first idle reduce task
+			if task.state == IDLE {
+				m.reduceTasks[index].state = INPROGRESS
+				m.reduceTasks[index].reduceid = reduceId
+				reply.FileName = task.filename
+				reply.TaskId = reduceId
+				reply.TaskIndex = index
+				reduceId++
+				go limitReduceTimer(m, index, reduceChanarr[index])
+				break
+			}
 		}
 
 	} else {
@@ -91,7 +102,7 @@ func (m *Master) AssignTask(args *MapAssignArgs, reply *MapAssignReply) error {
 }
 
 // to limit a task in 10s, if a task runs beyond 10s, change the state of the task to idle
-func limitTimer(m *Master, index int, baton chan int) {
+func limitMapTimer(m *Master, index int, baton chan int) {
 
 	select {
 	case x := <-baton:
@@ -107,14 +118,40 @@ func limitTimer(m *Master, index int, baton chan int) {
 		}
 		m.mapTasks[index].state = COMPLETED
 		mutex.Unlock()
+
 		// fmt.Println(m.mapTasks)
 	case <-time.After(time.Second * WAIT_TIME):
-		fmt.Printf("Task %v Timeout\n", index)
+		fmt.Printf("Map Task %v Timeout\n", index)
 		mutex.Lock()
 		m.mapTasks[index].state = IDLE
 		m.mapTasks[index].mapid++ // increment to discard previous messages
 		mutex.Unlock()
-		fmt.Println(m.mapTasks)
+		// fmt.Println(m.mapTasks)
+	}
+}
+
+// to limit a reduce task in 10 s
+func limitReduceTimer(m *Master, index int, baton chan int) {
+	select {
+	case x := <-baton:
+		if x == index {
+			fmt.Printf("Reduce Task %v has finished in 10s\n", index)
+		}
+		mutex.Lock()
+		reduceTasksTodo--
+		if reduceTasksTodo == 0 {
+			m.reduceCompleted = true
+			fmt.Println("All Reduce Tasks Has done!")
+			baton <- 1
+		}
+		m.reduceTasks[index].state = COMPLETED
+		mutex.Unlock()
+	case <-time.After(time.Second * WAIT_TIME):
+		fmt.Printf("Reduce Task %v Timeout\n", index)
+		mutex.Lock()
+		m.reduceTasks[index].state = IDLE
+		m.reduceTasks[index].reduceid++ // increment to discard previous messages
+		mutex.Unlock()
 	}
 
 }
@@ -128,9 +165,14 @@ func (m *Master) DoneTask(args *CompletedArgs, reply *CompletedReply) error {
 	// this worker has worked timeout
 	if args.TaskType == "map" {
 		if args.TaskId >= m.mapTasks[args.TaskIndex].mapid {
-			chanarr[args.TaskIndex] <- args.TaskId // tell the timer to stop
+			mapChanarr[args.TaskIndex] <- args.TaskIndex // tell the timer to stop
 			intermediateFiles = append(intermediateFiles, args.FileName)
 			reply.Message = "You finished " + strconv.Itoa(args.TaskId) + " Map Task. Keep Going"
+		}
+	} else if args.TaskType == "reduce" {
+		if args.TaskId >= m.reduceTasks[args.TaskIndex].reduceid {
+			reduceChanarr[args.TaskIndex] <- args.TaskIndex
+			reply.Message = "You finished " + strconv.Itoa(args.TaskId) + " Reduce Task. Keep Going"
 		}
 	}
 
@@ -249,7 +291,9 @@ func (m *Master) server() {
 func (m *Master) Done() bool {
 	ret := false
 
-	// Your code here.
+	if m.mapCompleted && m.reduceCompleted {
+		ret = true
+	}
 
 	return ret
 }
@@ -269,8 +313,11 @@ func MakeMaster(files []string, nReduce int) *Master {
 	m.reduceCompleted = false
 
 	// init channel
-	for i := range chanarr {
-		chanarr[i] = make(chan int, 1)
+	for i := range mapChanarr {
+		mapChanarr[i] = make(chan int, 1)
+	}
+	for i := range reduceChanarr {
+		reduceChanarr[i] = make(chan int, 1)
 	}
 
 	// start server

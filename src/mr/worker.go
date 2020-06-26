@@ -81,7 +81,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			kva := mapf(reply.FileName, string(content))
 
 			// sort
-			sort.Sort(ByKey(kva))
+			// sort.Sort(ByKey(kva))
 
 			// store intermediate kvs in tempFile
 			tempFileName := "./mr-tmp/tmp-" + reply.TaskType + "-" + strconv.Itoa(reply.TaskId)
@@ -103,7 +103,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			file.Close()
 
 			// try to delay sometime
-			// ran := rand.Intn(8)
+			// ran := rand.Intn(4)
 			// fmt.Printf("Sleep %v s\n", ran)
 			// d := time.Second * time.Duration(ran)
 			// time.Sleep(d)
@@ -113,6 +113,56 @@ func Worker(mapf func(string, string) []KeyValue,
 
 		} else if reply.TaskType == "reduce" {
 			fmt.Println(reply.TaskType)
+
+			kva := []KeyValue{}
+
+			file, err := os.Open(reply.FileName)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			dec := json.NewDecoder(file)
+			for {
+				var kv KeyValue
+				if err := dec.Decode(&kv); err != nil {
+					break
+				}
+				kva = append(kva, kv)
+			}
+
+			outputFileName := "mr-out-" + strconv.Itoa(reply.TaskIndex)
+			ofile, _ := os.Create(outputFileName)
+
+			// sort
+			sort.Sort(ByKey(kva))
+
+			i := 0
+			for i < len(kva) {
+				j := i + 1
+				for j < len(kva) && kva[j].Key == kva[i].Key {
+					j++
+				}
+				values := []string{}
+				for k := i; k < j; k++ {
+					values = append(values, kva[k].Value)
+				}
+				output := reducef(kva[i].Key, values)
+
+				fmt.Fprintf(ofile, "%v %v\n", kva[i].Key, output)
+
+				i = j
+			}
+
+			ofile.Close()
+
+			fmt.Printf("Reduce task %v has finished.\n", reply.TaskIndex)
+
+			// ran := rand.Intn(4)
+			// fmt.Printf("Sleep %v s\n", ran)
+			// d := time.Second * time.Duration(ran)
+			// time.Sleep(d)
+
+			CallDoneTask(reply, outputFileName)
 		} else if reply.TaskType == "close" {
 			fmt.Println("MapReduce has done. Exiting...")
 			break
