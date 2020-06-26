@@ -8,3 +8,4 @@ mrtmp.*
 *.so
 tmp-*
 mr-tmp-*
+mr-out*

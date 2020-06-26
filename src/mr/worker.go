@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/rpc"
 	"os"
-	"sort"
 	"strconv"
 	"time"
 )
@@ -20,14 +19,6 @@ type KeyValue struct {
 	Key   string
 	Value string
 }
-
-// for sorting by key.
-type ByKey []KeyValue
-
-// for sorting by key.
-func (a ByKey) Len() int           { return len(a) }
-func (a ByKey) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByKey) Less(i, j int) bool { return a[i].Key < a[j].Key }
 
 var (
 	taskId int // remember taskId
@@ -58,10 +49,10 @@ func Worker(mapf func(string, string) []KeyValue,
 
 		reply := CallAssign()
 
-		fmt.Println(reply)
+		// fmt.Println(reply)
 
 		if reply.TaskId < 0 {
-			fmt.Println("Waiting for assigning a work...")
+			// fmt.Println("Waiting for assigning a work...")
 			continue
 		}
 
@@ -84,7 +75,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			// sort.Sort(ByKey(kva))
 
 			// store intermediate kvs in tempFile
-			tempFileName := "./mr-tmp/tmp-" + reply.TaskType + "-" + strconv.Itoa(reply.TaskId)
+			tempFileName := "tmp-" + reply.TaskType + "-" + strconv.Itoa(reply.TaskId)
 
 			file, err = os.Create(tempFileName)
 			if err != nil {
@@ -112,7 +103,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			CallDoneTask(reply, tempFileName)
 
 		} else if reply.TaskType == "reduce" {
-			fmt.Println(reply.TaskType)
+			// fmt.Println(reply.TaskType)
 
 			kva := []KeyValue{}
 
@@ -134,7 +125,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			ofile, _ := os.Create(outputFileName)
 
 			// sort
-			sort.Sort(ByKey(kva))
+			// sort.Sort(ByKey(kva))
 
 			i := 0
 			for i < len(kva) {
@@ -148,6 +139,8 @@ func Worker(mapf func(string, string) []KeyValue,
 				}
 				output := reducef(kva[i].Key, values)
 
+				// fmt.Println(output)
+
 				fmt.Fprintf(ofile, "%v %v\n", kva[i].Key, output)
 
 				i = j
@@ -155,7 +148,7 @@ func Worker(mapf func(string, string) []KeyValue,
 
 			ofile.Close()
 
-			fmt.Printf("Reduce task %v has finished.\n", reply.TaskIndex)
+			// fmt.Printf("Reduce task %v has finished.\n", reply.TaskIndex)
 
 			// ran := rand.Intn(4)
 			// fmt.Printf("Sleep %v s\n", ran)
@@ -164,7 +157,7 @@ func Worker(mapf func(string, string) []KeyValue,
 
 			CallDoneTask(reply, outputFileName)
 		} else if reply.TaskType == "close" {
-			fmt.Println("MapReduce has done. Exiting...")
+			// fmt.Println("MapReduce has done. Exiting...")
 			break
 		} else {
 			fmt.Println("UnExcepted TaskType")
@@ -188,30 +181,7 @@ func CallDoneTask(task MapAssignReply, tempFileName string) {
 
 	call("Master.DoneTask", &args, &reply)
 
-	fmt.Println(reply.Message)
-}
-
-//
-// example function to show how to make an RPC call to the master.
-//
-// the RPC argument and reply types are defined in rpc.go.
-//
-func CallExample() {
-
-	// declare an argument structure.
-	args := ExampleArgs{}
-
-	// fill in the argument(s).
-	args.X = 99
-
-	// declare a reply structure.
-	reply := ExampleReply{}
-
-	// send the RPC request, wait for the reply.
-	call("Master.Example", &args, &reply)
-
-	// reply.Y should be 100.
-	fmt.Printf("reply.Y %v\n", reply.Y)
+	// fmt.Println(reply.Message)
 }
 
 // CallAssign to get a job from master
