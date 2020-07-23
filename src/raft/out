@@ -1,0 +1,37 @@
+Test (2A): initial election ...
+2 timeout, and is preparing election......
+0 timeout, and is preparing election......
+1 timeout, and is preparing election......
+0(term: 0) give vote to 2(term: 1)
+1(has voted: 2) confused to give vote to 0
+0(has voted: 1) confused to give vote to 1
+2 has become leader!
+2(has voted: 2) confused to give vote to 0
+HeartBeat: 2(term: 1) -> 0(term: 1)
+2(has voted: 1) confused to give vote to 1
+HeartBeat: 2(term: 1) -> 1(term: 1)
+HeartBeat: 2(term: 1) -> 0(term: 1)
+HeartBeat: 2(term: 1) -> 1(term: 1)
+0 timeout, and is preparing election......
+HeartBeat: 2(term: 1) -> 0(term: 1)
+HeartBeat: 2(term: 1) -> 1(term: 1)
+HeartBeat: 2(term: 1) -> 0(term: 1)
+1(term: 1) give vote to 0(term: 2)
+HeartBeat: 2(term: 1) -> 1(term: 1)
+HeartBeat: 2(term: 1) -> 0(term: 1)
+HeartBeat: 2(term: 1) -> 1(term: 1)
+2(has voted: -1) confused to give vote to 0
+HeartBeat: 2(term: 1) -> 0(term: 1)
+HeartBeat: 2(term: 1) -> 1(term: 1)
+HeartBeat: 2(term: 1) -> 0(term: 1)
+1 timeout, and is preparing election......
+HeartBeat: 2(term: 1) -> 1(term: 1)
+2 timeout, and is preparing election......
+HeartBeat: 2(term: 1) -> 0(term: 1)
+0(term: 1) give vote to 1(term: 2)
+1 has become leader!
+0 timeout, and is preparing election......
+HeartBeat: 2(term: 2) -> 0(term: 2)
+HeartBeat: 1(term: 2) -> 0(term: 2)
+signal: interrupt
+FAIL	_/Users/tanwei/workplace/golang/6.824/src/raft	17.431s
