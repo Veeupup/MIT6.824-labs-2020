@@ -1,37 +1,1133 @@
 Test (2A): initial election ...
-2 timeout, and is preparing election......
-0 timeout, and is preparing election......
-1 timeout, and is preparing election......
-0(term: 0) give vote to 2(term: 1)
-1(has voted: 2) confused to give vote to 0
-0(has voted: 1) confused to give vote to 1
-2 has become leader!
-2(has voted: 2) confused to give vote to 0
-HeartBeat: 2(term: 1) -> 0(term: 1)
-2(has voted: 1) confused to give vote to 1
-HeartBeat: 2(term: 1) -> 1(term: 1)
-HeartBeat: 2(term: 1) -> 0(term: 1)
-HeartBeat: 2(term: 1) -> 1(term: 1)
-0 timeout, and is preparing election......
-HeartBeat: 2(term: 1) -> 0(term: 1)
-HeartBeat: 2(term: 1) -> 1(term: 1)
-HeartBeat: 2(term: 1) -> 0(term: 1)
-1(term: 1) give vote to 0(term: 2)
-HeartBeat: 2(term: 1) -> 1(term: 1)
-HeartBeat: 2(term: 1) -> 0(term: 1)
-HeartBeat: 2(term: 1) -> 1(term: 1)
-2(has voted: -1) confused to give vote to 0
-HeartBeat: 2(term: 1) -> 0(term: 1)
-HeartBeat: 2(term: 1) -> 1(term: 1)
-HeartBeat: 2(term: 1) -> 0(term: 1)
-1 timeout, and is preparing election......
-HeartBeat: 2(term: 1) -> 1(term: 1)
-2 timeout, and is preparing election......
-HeartBeat: 2(term: 1) -> 0(term: 1)
-0(term: 1) give vote to 1(term: 2)
-1 has become leader!
-0 timeout, and is preparing election......
-HeartBeat: 2(term: 2) -> 0(term: 2)
-HeartBeat: 1(term: 2) -> 0(term: 2)
-signal: interrupt
-FAIL	_/Users/tanwei/workplace/golang/6.824/src/raft	17.431s
+2020/07/25 21:38:05 [ElectionTimeoutTick]: Id 1 Term 0 State FOLLOWER	||	timeout, convert to Candidate
+2020/07/25 21:38:05 [Eventloop]: Id 1 Term 0 State FOLLOWER	||	election timeout, start an election
+2020/07/25 21:38:05 [StartElection]: Id 1 Term 1 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:05 [StartElection]: Id 1 Term 1 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:05 [StartElection]: Id 1 Term 1 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:05 [RequestVote]: Id 0 Term 0 State FOLLOWER	||	 args's term 1 is larger
+2020/07/25 21:38:05 [RequestVote]: Id 2 Term 0 State FOLLOWER	||	 args's term 1 is larger
+2020/07/25 21:38:05 [StartElection]: Id 1 Term 1 State CANDIDATE	||	get vote from 0
+2020/07/25 21:38:05 [WinElection]: Id 1 Term 1 State CANDIDATE	||	win election with nVotes 2
+2020/07/25 21:38:05 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [StartElection]: Id 1 Term 1 State LEADER	||	get vote from 2
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:05 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:05 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:05 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:05 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:05 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:05 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:05 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:06 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:06 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:07 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:07 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:07 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+  ... Passed --   3.0  3   62   15920    0
+Test (2A): election after network failure ...
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:08 [ElectionTimeoutTick]: Id 0 Term 1 State FOLLOWER	||	timeout, convert to Candidate
+2020/07/25 21:38:08 [Eventloop]: Id 0 Term 1 State FOLLOWER	||	election timeout, start an election
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 2 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 2 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 2 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 2 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 2 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:08 [ElectionTimeoutTick]: Id 2 Term 1 State FOLLOWER	||	timeout, convert to Candidate
+2020/07/25 21:38:08 [Eventloop]: Id 2 Term 1 State FOLLOWER	||	election timeout, start an election
+2020/07/25 21:38:08 [ElectionTimeoutTick]: Id 2 Term 1 State FOLLOWER	||	timeout, convert to Candidate
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 2 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 2 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 2 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:08 [Eventloop]: Id 2 Term 2 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 3 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:08 [ElectionTimeoutTick]: Id 1 Term 0 State FOLLOWER	||	timeout, convert to Candidate
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 0 State FOLLOWER	||	election timeout, start an election
+2020/07/25 21:38:08 [StartElection]: Id 1 Term 1 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:08 [StartElection]: Id 1 Term 1 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:08 [StartElection]: Id 1 Term 1 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:08 [RequestVote]: Id 0 Term 0 State FOLLOWER	||	 args's term 1 is larger
+2020/07/25 21:38:08 [RequestVote]: Id 2 Term 0 State FOLLOWER	||	 args's term 1 is larger
+2020/07/25 21:38:08 [StartElection]: Id 1 Term 1 State CANDIDATE	||	get vote from 0
+2020/07/25 21:38:08 [WinElection]: Id 1 Term 1 State CANDIDATE	||	win election with nVotes 2
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [StartElection]: Id 1 Term 1 State LEADER	||	get vote from 2
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [ElectionTimeoutTick]: Id 0 Term 2 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:08 [Eventloop]: Id 0 Term 2 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 3 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 2 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 1 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:08 [ElectionTimeoutTick]: Id 2 Term 3 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:08 [Eventloop]: Id 2 Term 3 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 4 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:08 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [ElectionTimeoutTick]: Id 0 Term 3 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:08 [Eventloop]: Id 0 Term 3 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 4 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:08 [StartElection]: Id 0 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:08 [ElectionTimeoutTick]: Id 2 Term 1 State FOLLOWER	||	timeout, convert to Candidate
+2020/07/25 21:38:08 [Eventloop]: Id 2 Term 1 State FOLLOWER	||	election timeout, start an election
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 2 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 2 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 2 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:08 [RequestVote]: Id 0 Term 1 State FOLLOWER	||	 args's term 2 is larger
+2020/07/25 21:38:08 [StartElection]: Id 2 Term 2 State CANDIDATE	||	get vote from 0
+2020/07/25 21:38:08 [WinElection]: Id 2 Term 2 State CANDIDATE	||	win election with nVotes 2
+2020/07/25 21:38:08 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:08 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:08 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:08 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:08 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 2 Term 4 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 4 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 5 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 0 Term 4 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 0 Term 4 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 5 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 2 Term 5 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 5 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 6 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed, newer Term is 2
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 2 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 0 Failed, newer Term is 2
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [AppendEntries]: Id 1 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 1 Success!
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 0 Term 5 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 0 Term 5 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 6 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [AppendEntries]: Id 1 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 1 Success!
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 2 Term 6 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 6 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 2 Term 6 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 7 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 7 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 8 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [AppendEntries]: Id 1 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 1 Success!
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 0 Term 6 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 0 Term 6 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 7 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [AppendEntries]: Id 1 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 1 Success!
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 2 Term 8 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 8 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 9 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 2 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 0 Term 7 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 0 Term 7 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 8 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [AppendEntries]: Id 1 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 1 Success!
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 2 Term 9 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 9 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [AppendEntries]: Id 1 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 10 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [AppendEntries]: Id 0 Term 2 State FOLLOWER	||	heartbeat from leader 2
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:09 [StartElection]: Id 2 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 1 Success!
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:09 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:09 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:09 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:09 [ElectionTimeoutTick]: Id 0 Term 8 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:09 [Eventloop]: Id 0 Term 8 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 9 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:09 [StartElection]: Id 0 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 1 Term 2 State FOLLOWER	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 2 State FOLLOWER	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 3 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 2 State LEADER	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 2 Term 10 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 10 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 11 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 2 State FOLLOWER	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 2 State FOLLOWER	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 3 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 3 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 9 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 9 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 10 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 1 Term 3 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 3 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 4 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 2 Term 11 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 11 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 12 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 1 Term 4 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 4 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 5 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 3 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 3 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 4 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 4 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 10 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 10 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 11 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 2 Term 12 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 12 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 13 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 13 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 13 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 13 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 13 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 1 Term 5 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 5 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 6 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 4 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 4 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 5 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 5 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 11 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 11 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 12 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 2 Term 13 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 13 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 14 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 14 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 14 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 14 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 14 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 5 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 5 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 6 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 6 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 1 Term 6 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 6 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 7 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 1 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 12 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 12 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 13 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 13 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 13 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 13 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 13 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 2 Term 14 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 14 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 15 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 15 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 15 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 15 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:10 [StartElection]: Id 2 Term 15 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:10 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:10 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:10 [ElectionTimeoutTick]: Id 0 Term 6 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:10 [Eventloop]: Id 0 Term 6 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 7 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:10 [StartElection]: Id 0 Term 7 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 1 Term 7 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 7 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 8 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 0 Term 13 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 0 Term 13 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 14 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 14 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 14 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 14 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 14 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 2 Term 15 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 15 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 16 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 16 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 16 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 16 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 16 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 0 Term 7 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 0 Term 7 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 8 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 1 Term 8 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 8 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 9 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 9 State CANDIDATE	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 0 Term 14 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 0 Term 14 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 15 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 15 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 15 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 15 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 15 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 9 State CANDIDATE	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 2 Term 16 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 16 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 17 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 17 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 17 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 17 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 17 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 1 Term 9 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 9 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 10 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 8 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 0 Term 8 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 0 Term 8 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 9 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 9 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 0 Term 15 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 0 Term 15 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 16 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 16 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 16 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 16 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 16 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 1 Term 10 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 10 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 11 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 2 Term 17 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 17 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 18 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 18 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 18 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 18 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 18 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 0 Term 9 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 0 Term 9 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 10 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 10 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 11 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 1 Term 11 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 11 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 12 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 12 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [RequestVote]: Id 0 Term 10 State CANDIDATE	||	 args's term 12 is larger
+2020/07/25 21:38:11 [StartElection]: Id 1 Term 12 State CANDIDATE	||	get vote from 0
+2020/07/25 21:38:11 [WinElection]: Id 1 Term 12 State CANDIDATE	||	win election with nVotes 2
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:11 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:11 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 0 Term 16 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 0 Term 16 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 17 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 17 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 17 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 17 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:11 [StartElection]: Id 0 Term 17 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [ElectionTimeoutTick]: Id 2 Term 18 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 18 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 19 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 19 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 19 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 19 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:11 [StartElection]: Id 2 Term 19 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:11 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:11 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:11 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:12 [ElectionTimeoutTick]: Id 0 Term 17 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:12 [Eventloop]: Id 0 Term 17 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 18 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 18 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 18 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 18 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 18 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [ElectionTimeoutTick]: Id 2 Term 19 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:12 [Eventloop]: Id 2 Term 19 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 20 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 20 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 20 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 20 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 20 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 12 State FOLLOWER	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [ElectionTimeoutTick]: Id 0 Term 18 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:12 [Eventloop]: Id 0 Term 18 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 19 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 19 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 19 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 19 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 19 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [StartElection]: Id 1 Term 12 State LEADER	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:12 [Eventloop]: Id 2 Term 2 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 1 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 2 State LEADER	||	iAppendEntries RPC for index 0 to peer 1 Failed, newer Term is 12
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 12 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 0 Failed, newer Term is 12
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 12 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:12 [ElectionTimeoutTick]: Id 2 Term 20 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:12 [Eventloop]: Id 2 Term 20 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 21 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 21 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 21 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 21 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 21 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 2 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 12 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 12 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:12 [ElectionTimeoutTick]: Id 0 Term 19 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:12 [Eventloop]: Id 0 Term 19 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 20 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 20 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 20 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 20 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 20 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 2 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 2 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 12 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 12 State FOLLOWER	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 12 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [ElectionTimeoutTick]: Id 2 Term 21 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:12 [Eventloop]: Id 2 Term 21 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:12 [ElectionTimeoutTick]: Id 2 Term 21 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:12 [Eventloop]: Id 2 Term 21 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 22 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 22 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 22 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 23 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 23 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 23 State CANDIDATE	||	issue RequestVote RPC to peer 0
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 23 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 23 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 23 State CANDIDATE	||	issue RequestVote RPC to peer 0 failed
+2020/07/25 21:38:12 [StartElection]: Id 2 Term 23 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [Broadcast]: Id 2 Term 12 State FOLLOWER	||	iAppendEntries RPC for index 0 to peer 1 Failed
+2020/07/25 21:38:12 [ElectionTimeoutTick]: Id 0 Term 20 State CANDIDATE	||	timeout, convert to Candidate
+2020/07/25 21:38:12 [Eventloop]: Id 0 Term 20 State CANDIDATE	||	election timeout, start an election
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 21 State CANDIDATE	||	timeout, start Election
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 21 State CANDIDATE	||	issue RequestVote RPC to peer 1
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 21 State CANDIDATE	||	issue RequestVote RPC to peer 2
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 21 State CANDIDATE	||	issue RequestVote RPC to peer 2 failed
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 21 State CANDIDATE	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 2 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 1 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 2 Failed
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 1 State LEADER	||	iAppendEntries RPC for index 0 to peer 0 Failed
+2020/07/25 21:38:12 [StartElection]: Id 0 Term 12 State FOLLOWER	||	issue RequestVote RPC to peer 1 failed
+2020/07/25 21:38:12 [Eventloop]: Id 1 Term 12 State LEADER	||	heartbeat period occurs, broadcast heartbeats
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 2 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	issue AppendEntries RPC for index 0 to peer 0 with commitIndex 0 nextIndex 0
+2020/07/25 21:38:12 [AppendEntries]: Id 2 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [AppendEntries]: Id 0 Term 12 State FOLLOWER	||	heartbeat from leader 1
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 2 Success!
+2020/07/25 21:38:12 [Broadcast]: Id 1 Term 12 State LEADER	||	iAppendEntries RPC to peer 0 Success!
+  ... Passed --   4.4  3  154   29418    0
+PASS
+ok  	_/Users/tanwei/workplace/golang/6.824/src/raft	8.158s
